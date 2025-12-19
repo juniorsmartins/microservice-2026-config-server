@@ -152,7 +152,7 @@ spring:
 
     topic:
       events:
-        customer-created: events.customer-created-v1
+        customer-created: events.customer-created-v2
       min.insync.replicas: 3 # O min.insync.replicas configuração trabalha em conjunto com acks=all para controlar a durabilidade.
   # --------------------------------------------------
 
