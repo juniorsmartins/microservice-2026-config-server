@@ -4,14 +4,14 @@ server:
 spring:
   application:
     name: configserver
-  profiles:
-    active: native
-
----
-spring:
-  config:
-    activate:
-      on-profile: native
+#  profiles:
+#    active: native
+#
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: native
 
   # --------------------------------------------------
   # Config de actuator
