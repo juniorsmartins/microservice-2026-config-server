@@ -25,17 +25,17 @@ spring:
       # Quantidade máxima de conexões simultâneas
       maximum-pool-size: 25
       # Define tempo limite de ociosidade para conexões excedentes. Serão removidas após esse tempo.
-      idle-timeout: 600002
+      idle-timeout: 600001
       # Tempo máximo de vida de uma conexão antes de ser reciclada
-      max-lifetime: 1800002
+      max-lifetime: 1800001
       # Tempo máximo esperando uma conexão antes de erro. Se todas as conexões estiverem em uso e outra requisição chegar, ela espera até 3s. Se passar disso → SQLTransientConnectionException.
-      connection-timeout: 3002
+      connection-timeout: 3001
       # Timeout de validação de conexão. Evita travamento ao testar conexões ruins.
-      validation-timeout: 5002
+      validation-timeout: 5001
       # Valida conexão antes de emprestar (para DB instável). Excelente para ambientes com queda ou timeout no DB
       connection-test-query: SELECT 1
       # Os pings periódicos mantêm as conexões ativas e impedem que sejam fechadas pelo banco de dados.
-      keepalive-time: 300002
+      keepalive-time: 300001
       # Queries internas (validação) rodam separadas da aplicação. Evita interferência em monitoramentos e transações. Recomendado.
       isolate-internal-queries: true
       # Essas configs aumentam performance usando prepared statements, diminuindo roundtrips e reuso de conexões:
