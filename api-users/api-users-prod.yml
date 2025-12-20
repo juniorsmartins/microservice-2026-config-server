@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: configserver
+    name: api-users
 
   datasource: # Configura o datasource do banco de dados.
     driver-class-name: org.postgresql.Driver # Especifica o driver JDBC (neste caso, para Postgres).
