@@ -169,6 +169,8 @@ management:
   endpoint:
     health:
       show-details: always # Mostra detalhes completos de saúde
+    configprops:
+      show-values: always
   # --------------------------------------------------
 
 
