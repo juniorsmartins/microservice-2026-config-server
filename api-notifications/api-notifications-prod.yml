@@ -16,7 +16,7 @@ spring:
         retry:
           initial-interval: 3000
           max-interval: 9000
-          max-attempts: 3
+          max-attempts: 5
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -30,8 +30,8 @@ spring:
     hikari:
       autoCommit: false
       pool-name: ${spring.application.name}-hikariPool
-      minimum-idle: 5
-      maximum-pool-size: 20
+      minimum-idle: 10
+      maximum-pool-size: 25
       idle-timeout: 600000
       max-lifetime: 1800000
       connection-timeout: 3000
