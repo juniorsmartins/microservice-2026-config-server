@@ -227,3 +227,17 @@ logging:
     com.zaxxer.hikari: DEBUG
     com.zaxxer.hikari.pool.HikariPool: TRACE
   # --------------------------------------------------
+
+
+  # --------------------------------------------------
+  # Config de SpringDoc/OpenAPI
+  # --------------------------------------------------
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+  # --------------------------------------------------
+
+
