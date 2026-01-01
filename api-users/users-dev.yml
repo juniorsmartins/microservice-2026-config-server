@@ -216,7 +216,7 @@ eureka:
 springdoc:
   api-docs:
     enabled: true
-    path: /v3/api-docs
+    path: /v3/api-docs-users
   swagger-ui:
     enabled: true
     path: /swagger-ui/index.html
