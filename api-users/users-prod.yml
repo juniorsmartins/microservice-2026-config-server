@@ -223,9 +223,8 @@ logging:
 springdoc:
   api-docs:
     enabled: true
-    path: /1.0/api-docs
+    path: /v3/api-docs
   swagger-ui:
     enabled: true
-    path: /1.0/swagger-ui.html
-#  packages-to-scan: backend.finance.adapters
+    path: /swagger-ui/index.html
   # --------------------------------------------------
