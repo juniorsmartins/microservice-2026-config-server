@@ -218,8 +218,7 @@ springdoc:
     enabled: true
     path: /api-users/v3/api-docs
   swagger-ui:
-    enabled: true
-    path: /swagger-ui-users/index.html
+    url: /api-users/v3/api-docs
   # --------------------------------------------------
 
 
