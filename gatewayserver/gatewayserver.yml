@@ -41,16 +41,34 @@ spring:
               uri: lb://api-users
               predicates:
                 - Path=/api-users/v3/api-docs
+              metadata:
+                cors:
+                  allowedOrigins: '*'
+                  allowedMethods: '*'
+                  allowedHeaders: '*'
+                  maxAge: 30
 
             - id: api-news-docs
               uri: lb://api-news
               predicates:
                 - Path=/api-news/v3/api-docs
+              metadata:
+                cors:
+                  allowedOrigins: '*'
+                  allowedMethods: '*'
+                  allowedHeaders: '*'
+                  maxAge: 30
 
             - id: api-notifications-docs
               uri: lb://api-notifications
               predicates:
                 - Path=/api-notifications/v3/api-docs
+              metadata:
+                cors:
+                  allowedOrigins: '*'
+                  allowedMethods: '*'
+                  allowedHeaders: '*'
+                  maxAge: 30
   # --------------------------------------------------
 
 
@@ -92,8 +110,6 @@ springdoc:
   api-docs:
     enabled: false
   swagger-ui:
-#    enabled: true
-#    path: /swagger-ui/index.html
     urls:
       - name: api-users
         url: /api-users/v3/api-docs
