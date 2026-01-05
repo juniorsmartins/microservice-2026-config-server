@@ -107,9 +107,9 @@ eureka:
   # Config de SpringDoc/OpenAPI
   # --------------------------------------------------
 springdoc:
-#  api-docs:
-#    enabled: false
   swagger-ui:
+    enabled: true
+    path: /swagger-ui/index.html
     urls:
       - name: api-users
         url: /api-users/v3/api-docs
