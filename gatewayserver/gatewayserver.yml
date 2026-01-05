@@ -11,15 +11,15 @@ spring:
   # --------------------------------------------------
   cloud:
     gateway:
-      globalcors: # CORS global para todos os routes
-        cors-configurations:
-          '[/**]': # Aplica a todos os paths
-            allowedOriginPatterns: [ "*" ]  # Permite qualquer origem (dev); em prod: ["http://localhost:3000", "https://seu-frontend.com"]
-            allowedMethods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD" ]
-            allowedHeaders: [ "*" ]
-            exposedHeaders: [ "Location", "Content-Type", "X-Requested-With", "Authorization" ]
-            allowCredentials: true
-            maxAge: 3600
+#      globalcors: # CORS global para todos os routes
+#        cors-configurations:
+#          '[/**]': # Aplica a todos os paths
+#            allowedOriginPatterns: [ "*" ]  # Permite qualquer origem (dev); em prod: ["http://localhost:3000", "https://seu-frontend.com"]
+#            allowedMethods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD" ]
+#            allowedHeaders: [ "*" ]
+#            exposedHeaders: [ "Location", "Content-Type", "X-Requested-With", "Authorization" ]
+#            allowCredentials: true
+#            maxAge: 3600
       server:
         webflux:
           routes:
