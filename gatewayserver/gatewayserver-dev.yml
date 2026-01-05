@@ -6,7 +6,7 @@ spring:
     name: gatewayserver
 
 
-  # --------------------------------------------------
+    # --------------------------------------------------
   # Config de Gateway
   # --------------------------------------------------
   cloud:
@@ -18,22 +18,16 @@ spring:
               uri: lb://api-users
               predicates:
                 - Path=/api/{version}/customers/**
-              filters:
-                - RewritePath=/api-users/(?<remaining>.*), /$\{remaining}
 
             - id: api-notifications
               uri: lb://api-notifications
               predicates:
                 - Path=/api/{version}/notifications/**
-              filters:
-                - RewritePath=/api-notifications/(?<remaining>.*), /$\{remaining}
 
             - id: api-news
               uri: lb://api-news
               predicates:
                 - Path=/api/{version}/news/**
-              filters:
-                - RewritePath=/api-news/(?<remaining>.*), /$\{remaining}
 
             # ── Rotas exclusivas para documentação SpringDoc ───────────────────────
             - id: api-users-docs
