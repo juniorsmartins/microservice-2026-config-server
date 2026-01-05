@@ -18,85 +18,49 @@ spring:
               uri: lb://api-users
               predicates:
                 - Path=/api/{version}/customers/**
-              metadata:
-                cors:
-                  allowedOriginPatterns: [ "*" ]
-                  allowedMethods: [ "*" ]
-                  allowedHeaders: [ "*" ]
-                  allowCredentials: true
-                  maxAge: 3600
+              filters:
+                - RewritePath=/api-users/(?<remaining>.*), /$\{remaining}
 
             - id: api-notifications
               uri: lb://api-notifications
               predicates:
                 - Path=/api/{version}/notifications/**
-              metadata:
-                cors:
-                  allowedOriginPatterns: [ "*" ]
-                  allowedMethods: [ "*" ]
-                  allowedHeaders: [ "*" ]
-                  allowCredentials: true
-                  maxAge: 3600
+              filters:
+                - RewritePath=/api-notifications/(?<remaining>.*), /$\{remaining}
 
             - id: api-news
               uri: lb://api-news
               predicates:
                 - Path=/api/{version}/news/**
-              metadata:
-                cors:
-                  allowedOriginPatterns: [ "*" ]
-                  allowedMethods: [ "*" ]
-                  allowedHeaders: [ "*" ]
-                  allowCredentials: true
-                  maxAge: 3600
+              filters:
+                - RewritePath=/api-news/(?<remaining>.*), /$\{remaining}
 
             # ── Rotas exclusivas para documentação SpringDoc ───────────────────────
             - id: api-users-docs
               uri: lb://api-users
               predicates:
                 - Path=/api-users/v3/api-docs
-              metadata:
-                cors:
-                  allowedOriginPatterns: [ "*" ]
-                  allowedMethods: [ "*" ]
-                  allowedHeaders: [ "*" ]
-                  allowCredentials: true
-                  maxAge: 3600
 
             - id: api-news-docs
               uri: lb://api-news
               predicates:
                 - Path=/api-news/v3/api-docs
-              metadata:
-                cors:
-                  allowedOriginPatterns: [ "*" ]
-                  allowedMethods: [ "*" ]
-                  allowedHeaders: [ "*" ]
-                  allowCredentials: true
-                  maxAge: 3600
 
             - id: api-notifications-docs
               uri: lb://api-notifications
               predicates:
                 - Path=/api-notifications/v3/api-docs
-              metadata:
-                cors:
-                  allowedOriginPatterns: [ "*" ]
-                  allowedMethods: [ "*" ]
-                  allowedHeaders: [ "*" ]
-                  allowCredentials: true
-                  maxAge: 3600
 
-#          globalcors:
-#            add-to-simple-url-handler-mapping: true
-#            cors-configurations:
-#              '[/**]':
-#                allowedOriginPatterns: [ "*" ]
-#                allowedMethods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD" ]
-#                allowedHeaders: [ "*" ]
-#                exposedHeaders: [ "*" ]
-#                allowCredentials: true
-#                maxAge: 3600
+          globalcors:
+            add-to-simple-url-handler-mapping: true
+            cors-configurations:
+              '[/**]':
+                allowedOriginPatterns: [ "*" ]
+                allowedMethods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD" ]
+                allowedHeaders: [ "*" ]
+                exposedHeaders: [ "Location", "Content-Type" ]
+                allowCredentials: true
+                maxAge: 3600
   # --------------------------------------------------
 
 
