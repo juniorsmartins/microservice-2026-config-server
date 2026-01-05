@@ -11,15 +11,6 @@ spring:
   # --------------------------------------------------
   cloud:
     gateway:
-#      globalcors: # CORS global para todos os routes
-#        cors-configurations:
-#          '[/**]': # Aplica a todos os paths
-#            allowedOriginPatterns: [ "*" ]  # Permite qualquer origem (dev); em prod: ["http://localhost:3000", "https://seu-frontend.com"]
-#            allowedMethods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD" ]
-#            allowedHeaders: [ "*" ]
-#            exposedHeaders: [ "Location", "Content-Type", "X-Requested-With", "Authorization" ]
-#            allowCredentials: true
-#            maxAge: 3600
       server:
         webflux:
           routes:
@@ -41,34 +32,27 @@ spring:
               uri: lb://api-users
               predicates:
                 - Path=/api-users/v3/api-docs
-              metadata:
-                cors:
-                  allowedOrigins: '*'
-                  allowedMethods: '*'
-                  allowedHeaders: '*'
-                  maxAge: 30
 
             - id: api-news-docs
               uri: lb://api-news
               predicates:
                 - Path=/api-news/v3/api-docs
-              metadata:
-                cors:
-                  allowedOrigins: '*'
-                  allowedMethods: '*'
-                  allowedHeaders: '*'
-                  maxAge: 30
 
             - id: api-notifications-docs
               uri: lb://api-notifications
               predicates:
                 - Path=/api-notifications/v3/api-docs
-              metadata:
-                cors:
-                  allowedOrigins: '*'
-                  allowedMethods: '*'
-                  allowedHeaders: '*'
-                  maxAge: 30
+
+          globalcors:
+            add-to-simple-url-handler-mapping: true
+            cors-configurations:
+              '[/**]':
+                allowedOriginPatterns: [ "*" ]
+                allowedMethods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD" ]
+                allowedHeaders: [ "*" ]
+                exposedHeaders: [ "*" ]
+                allowCredentials: true
+                maxAge: 3600
   # --------------------------------------------------
 
 
