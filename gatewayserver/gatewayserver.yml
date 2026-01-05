@@ -43,15 +43,15 @@ spring:
               predicates:
                 - Path=/api-notifications/v3/api-docs
 
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOriginPatterns: [ "*" ]  # Permite qualquer origem. Perigoso em prod.
-            allowedMethods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD" ]
-            allowedHeaders: [ "*" ]
-            exposedHeaders: [ "Location", "Content-Type", "X-Requested-With" ]
-            allowCredentials: true
-            maxAge: 3600
+#      globalcors:
+#        cors-configurations:
+#          '[/**]':
+#            allowedOriginPatterns: [ "*" ]  # Permite qualquer origem. Perigoso em prod.
+#            allowedMethods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD" ]
+#            allowedHeaders: [ "*" ]
+#            exposedHeaders: [ "Location", "Content-Type", "X-Requested-With" ]
+#            allowCredentials: true
+#            maxAge: 3600
   # --------------------------------------------------
 
 
