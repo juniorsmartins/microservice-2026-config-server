@@ -11,6 +11,15 @@ spring:
   # --------------------------------------------------
   cloud:
     gateway:
+      globalcors: # CORS global para todos os routes
+        cors-configurations:
+          '[/**]': # Aplica a todos os paths
+            allowedOriginPatterns: [ "*" ]  # Permite qualquer origem (dev); em prod: ["http://localhost:3000", "https://seu-frontend.com"]
+            allowedMethods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD" ]
+            allowedHeaders: [ "*" ]
+            exposedHeaders: [ "Location", "Content-Type", "X-Requested-With", "Authorization" ]
+            allowCredentials: true
+            maxAge: 3600
       server:
         webflux:
           routes:
@@ -42,16 +51,6 @@ spring:
               uri: lb://api-notifications
               predicates:
                 - Path=/api-notifications/v3/api-docs
-
-#      globalcors:
-#        cors-configurations:
-#          '[/**]':
-#            allowedOriginPatterns: [ "*" ]  # Permite qualquer origem. Perigoso em prod.
-#            allowedMethods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD" ]
-#            allowedHeaders: [ "*" ]
-#            exposedHeaders: [ "Location", "Content-Type", "X-Requested-With" ]
-#            allowCredentials: true
-#            maxAge: 3600
   # --------------------------------------------------
 
 
@@ -90,9 +89,11 @@ eureka:
   # Config de SpringDoc/OpenAPI
   # --------------------------------------------------
 springdoc:
+  api-docs:
+    enabled: false
   swagger-ui:
-#    enabled: true
-#    path: /swagger-ui/index.html
+    #    enabled: true
+    #    path: /swagger-ui/index.html
     urls:
       - name: api-users
         url: /api-users/v3/api-docs
