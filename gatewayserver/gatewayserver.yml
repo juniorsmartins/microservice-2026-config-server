@@ -81,8 +81,8 @@ eureka:
   # --------------------------------------------------
 springdoc:
   swagger-ui:
-    enabled: true
-    path: /swagger-ui/index.html
+#    enabled: true
+#    path: /swagger-ui/index.html
     urls:
       - name: api-users
         url: /api-users/v3/api-docs
