@@ -66,5 +66,4 @@ springdoc:
     enebled: true
     path: /swagger-ui/v3/index.html
     url: /api-news/v3/api-docs
-  override-server-url: true
   # --------------------------------------------------
