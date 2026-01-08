@@ -1,0 +1,122 @@
+server:
+  port: ${SERVER_PORT:8765}
+
+spring:
+  application:
+    name: gatewayserver
+
+
+  # --------------------------------------------------
+  # Config de Gateway
+  # --------------------------------------------------
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: api-users
+              uri: lb://api-users
+              predicates:
+                - Path=/api/{version}/customers/**
+
+            - id: api-notifications
+              uri: lb://api-notifications
+              predicates:
+                - Path=/api/{version}/notifications/**
+
+            - id: api-news
+              uri: lb://api-news
+              predicates:
+                - Path=/api/{version}/news/**
+
+            # ── Rotas exclusivas para documentação SpringDoc ───────────────────────
+            - id: api-users-docs
+              uri: lb://api-users
+              predicates:
+                - Path=/api-users/v3/api-docs
+
+            - id: api-news-docs
+              uri: lb://api-news
+              predicates:
+                - Path=/api-news/v3/api-docs
+
+            - id: api-notifications-docs
+              uri: lb://api-notifications
+              predicates:
+                - Path=/api-notifications/v3/api-docs
+    # --------------------------------------------------
+
+
+    # --------------------------------------------------
+    # Config de Config Client
+    # --------------------------------------------------
+    config:
+      profile: ${SPRING_PROFILES_ACTIVE:prod}
+      fail-fast: true
+      refresh:
+        enable: true
+      retry:
+        initial-interval: 3000
+        max-interval: 9000
+        max-attempts: 1
+  config:
+    import: optional:configserver:${SPRING_CLOUD_CONFIG_SERVER_URI:http://localhost:8888}
+  # --------------------------------------------------
+
+
+  # --------------------------------------------------
+  # Config de Actuator
+  # --------------------------------------------------
+management:
+  endpoints:
+    web:
+      base-path: /actuator # Define o path base dos endpoints do actuator (padrão /actuator)
+      exposure:
+        include: refresh,health,info,metrics,configprops # Expõe endpoints para monitoramento
+  endpoint:
+    health:
+      show-details: always # Mostra detalhes completos de saúde
+    configprops:
+      show-values: always # Mostra valores das propriedades de configuração
+  # --------------------------------------------------
+
+
+  # --------------------------------------------------
+  # Config de Eureka Client
+  # --------------------------------------------------
+eureka:
+  client:
+    register-with-eureka: true # True = Diz: "Registre-se no servidor eureka". False = "Não se registre no servidor eureka".
+    fetch-registry: true # True = Diz: "Busque a lista de serviços registrados no servidor eureka". False = "Não busque a lista de serviços registrados no servidor eureka".
+    service-url:
+      defaultZone: ${SPRING_CLOUD_EUREKA_SERVER_URI:http://localhost:8761/eureka/} # Endereço do Eureka Server
+    healthcheck: # Habilita healthcheck. O servidor Eureka periodicamente checa se o cliente está saudável. Se não estiver, o servidor marca como DOWN. Útil para load balancers.
+      enabled: true
+  # --------------------------------------------------
+
+
+  # --------------------------------------------------
+  # Config de SpringDoc/OpenAPI
+  # --------------------------------------------------
+springdoc:
+  swagger-ui:
+    urls:
+      - name: api-users
+        url: /api-users/v3/api-docs
+      - name: api-notifications
+        url: /api-notifications/v3/api-docs
+      - name: api-news
+        url: /api-news/v3/api-docs
+  # --------------------------------------------------
+
+
+  # --------------------------------------------------
+  # Config de logging
+  # --------------------------------------------------
+logging:
+  level:
+    org.springframework.web.cors: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+  # --------------------------------------------------
+
+
