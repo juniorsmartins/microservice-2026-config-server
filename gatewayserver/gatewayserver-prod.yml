@@ -44,23 +44,6 @@ spring:
               uri: lb://api-notifications
               predicates:
                 - Path=/api-notifications/v3/api-docs
-    # --------------------------------------------------
-
-
-    # --------------------------------------------------
-    # Config de Config Client
-    # --------------------------------------------------
-    config:
-      profile: ${SPRING_PROFILES_ACTIVE:prod}
-      fail-fast: true
-      refresh:
-        enable: true
-      retry:
-        initial-interval: 3000
-        max-interval: 9000
-        max-attempts: 1
-  config:
-    import: optional:configserver:${SPRING_CLOUD_CONFIG_SERVER_URI:http://localhost:8888}
   # --------------------------------------------------
 
 
@@ -70,14 +53,14 @@ spring:
 management:
   endpoints:
     web:
-      base-path: /actuator # Define o path base dos endpoints do actuator (padrão /actuator)
+      base-path: /actuator
       exposure:
-        include: refresh,health,info,metrics,configprops # Expõe endpoints para monitoramento
+        include: refresh,health,info,metrics,configprops
   endpoint:
     health:
-      show-details: always # Mostra detalhes completos de saúde
+      show-details: always
     configprops:
-      show-values: always # Mostra valores das propriedades de configuração
+      show-values: always
   # --------------------------------------------------
 
 
@@ -86,11 +69,11 @@ management:
   # --------------------------------------------------
 eureka:
   client:
-    register-with-eureka: true # True = Diz: "Registre-se no servidor eureka". False = "Não se registre no servidor eureka".
-    fetch-registry: true # True = Diz: "Busque a lista de serviços registrados no servidor eureka". False = "Não busque a lista de serviços registrados no servidor eureka".
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
-      defaultZone: ${SPRING_CLOUD_EUREKA_SERVER_URI:http://localhost:8761/eureka/} # Endereço do Eureka Server
-    healthcheck: # Habilita healthcheck. O servidor Eureka periodicamente checa se o cliente está saudável. Se não estiver, o servidor marca como DOWN. Útil para load balancers.
+      defaultZone: ${SPRING_CLOUD_EUREKA_SERVER_URI:http://localhost:8761/eureka/}
+    healthcheck:
       enabled: true
   # --------------------------------------------------
 
