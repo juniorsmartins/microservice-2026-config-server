@@ -6,7 +6,7 @@ spring:
     name: gatewayserver
 
 
-    # --------------------------------------------------
+  # --------------------------------------------------
   # Config de Gateway
   # --------------------------------------------------
   cloud:
@@ -44,6 +44,23 @@ spring:
               uri: lb://api-notifications
               predicates:
                 - Path=/api-notifications/v3/api-docs
+    # --------------------------------------------------
+
+
+    # --------------------------------------------------
+    # Config de Config Client
+    # --------------------------------------------------
+    config:
+      profile: ${SPRING_PROFILES_ACTIVE:prod}
+      fail-fast: true
+      refresh:
+        enable: true
+      retry:
+        initial-interval: 3000
+        max-interval: 9000
+        max-attempts: 1
+  config:
+    import: optional:configserver:${SPRING_CLOUD_CONFIG_SERVER_URI:http://localhost:8888}
   # --------------------------------------------------
 
 
@@ -65,7 +82,7 @@ management:
 
 
   # --------------------------------------------------
-  # Config de Eureka Server Client
+  # Config de Eureka Client
   # --------------------------------------------------
 eureka:
   client:
@@ -90,6 +107,16 @@ springdoc:
         url: /api-notifications/v3/api-docs
       - name: api-news
         url: /api-news/v3/api-docs
+  # --------------------------------------------------
+
+
+  # --------------------------------------------------
+  # Config de logging
+  # --------------------------------------------------
+logging:
+  level:
+    org.springframework.web.cors: DEBUG
+    org.springframework.cloud.gateway: DEBUG
   # --------------------------------------------------
 
 
