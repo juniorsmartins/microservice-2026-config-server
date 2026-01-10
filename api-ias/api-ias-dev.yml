@@ -93,3 +93,12 @@ springdoc:
   # --------------------------------------------------
 
 
+  # --------------------------------------------------
+  # Config de logging
+  # --------------------------------------------------
+logging:
+  level:
+    org.springframework.cloud.config: DEBUG
+    org.springframework.cloud.config.client: TRACE
+  # --------------------------------------------------
+
