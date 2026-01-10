@@ -2,7 +2,7 @@ server:
   port: ${SERVER_PORT:9050}
 
 users:
-  message: "Microsserviços News - Dev"
+  message: "Microsserviços Users - Dev"
   contact-detail:
     name: "Winston Churchil - Developer"
     email: "ias@email.com"
