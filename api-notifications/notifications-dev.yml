@@ -1,6 +1,15 @@
 server:
   port: ${SERVER_PORT:9060}
 
+notifications:
+  message: "Microsserviços News - Dev"
+  contact-detail:
+    name: "Winston Churchil - Developer"
+    email: "ias@email.com"
+  on-call-suport:
+    - (453) 392-4829
+    - (236) 203-0384
+
 spring:
   application:
     name: api-notifications
