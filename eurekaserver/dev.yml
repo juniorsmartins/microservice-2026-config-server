@@ -1,11 +1,3 @@
-server:
-  port: ${SERVER_PORT:8761} # Porta padrão do Eureka Server é 8761
-
-spring:
-  application:
-    name: eurekaserver
-
-
   # --------------------------------------------------
   # Config de Config Client
   # --------------------------------------------------

@@ -1,18 +1,11 @@
-server:
-  port: ${SERVER_PORT:9000}
-
 news:
-  message: "Microsserviços News - Dev"
+  message: "Microsserviços News - Prod"
   contact-detail:
     name: "Winston Churchil - Developer"
     email: "ias@email.com"
   on-call-suport:
     - (453) 392-4829
     - (236) 203-0384
-
-spring:
-  application:
-    name: api-news
 
 
   # --------------------------------------------------
@@ -121,13 +114,10 @@ spring:
 
 
   # --------------------------------------------------
-  # Config de RabbitMQ para Spring Cloud Bus
+  # Config de Kafka
   # --------------------------------------------------
-  rabbitmq:
-    host: ${RABBIT_HOST:localhost}
-    port: ${RABBIT_PORT:5672}
-    username: ${RABBIT_USER:"guest"}
-    password: ${RABBIT_PASS:"guest"}
+  kafka:
+    bootstrap-servers: kafka-1:9092,kafka-2:9092,kafka-3:9092
   # --------------------------------------------------
 
 
@@ -176,6 +166,3 @@ springdoc:
     path: /swagger-ui/v3/index.html
     url: /api-news/v3/api-docs
   # --------------------------------------------------
-
-
-
