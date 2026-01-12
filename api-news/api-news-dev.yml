@@ -121,10 +121,13 @@ spring:
 
 
   # --------------------------------------------------
-  # Config de Kafka
+  # Config de RabbitMQ para Spring Cloud Bus
   # --------------------------------------------------
-  kafka:
-    bootstrap-servers: kafka-1:9092,kafka-2:9092,kafka-3:9092
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USER:"guest"}
+    password: ${RABBIT_PASS:"guest"}
   # --------------------------------------------------
 
 

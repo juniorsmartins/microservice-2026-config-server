@@ -130,6 +130,17 @@ spring:
 
 
   # --------------------------------------------------
+  # Config de RabbitMQ para Spring Cloud Bus
+  # --------------------------------------------------
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USER:"guest"}
+    password: ${RABBIT_PASS:"guest"}
+  # --------------------------------------------------
+
+
+  # --------------------------------------------------
   # Config de Kafka
   # --------------------------------------------------
   kafka:

@@ -36,10 +36,10 @@ spring:
   # Config de RabbitMQ para Spring Cloud Bus
   # --------------------------------------------------
   rabbitmq:
-    host: ${RABBIT_URI:localhost:5672}
-    port: 5672
-    username: "guest"
-    password: "guest"
+    host: ${RABBIT_HOST:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USER:"guest"}
+    password: ${RABBIT_PASS:"guest"}
   # --------------------------------------------------
 
 
