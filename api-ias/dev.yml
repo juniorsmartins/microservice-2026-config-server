@@ -2,7 +2,7 @@ server:
   port: ${SERVER_PORT:9010}
 
 ias:
-  message: "Microsserviços IAS - Default"
+  message: "Microsserviços IAS - Dev"
   contact-detail:
     name: "Winston Churchil - Developer"
     email: "ias@email.com"
