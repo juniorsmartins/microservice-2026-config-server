@@ -7,6 +7,7 @@ news:
     - (453) 392-4829
     - (236) 203-0384
 
+spring:
 
   # --------------------------------------------------
   # Config de Datasource e Pool de Conexões (MySQL)
