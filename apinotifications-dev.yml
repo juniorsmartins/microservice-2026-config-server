@@ -1,6 +1,6 @@
 spring:
   application:
-    name: api-notifications
+    name: apinotifications
 
   profiles:
     active: dev

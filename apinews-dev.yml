@@ -1,6 +1,6 @@
 spring:
   application:
-    name: api-news
+    name: apinews
 
   profiles:
     active: dev

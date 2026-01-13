@@ -1,6 +1,6 @@
 spring:
   application:
-    name: api-ias
+    name: apiias
 
   profiles:
     active: prod
