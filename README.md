@@ -1,1 +1,0 @@
-# microservice-2026-config-server
