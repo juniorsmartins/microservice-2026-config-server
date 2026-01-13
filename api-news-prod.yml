@@ -168,7 +168,7 @@ springdoc:
   # --------------------------------------------------
 
 
-news:
+informacoes:
   message: "Microsserviços News - Prod"
   contact-detail:
     name: "Winston Churchil - Developer"

@@ -96,7 +96,7 @@ logging:
   # --------------------------------------------------
 
 
-ias:
+informacoes:
   message: "Microsserviços IAS - Dev"
   contact-detail:
     name: "Winston Churchil - Developer"

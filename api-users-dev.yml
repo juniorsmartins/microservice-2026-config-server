@@ -251,7 +251,7 @@ logging:
   # --------------------------------------------------
 
 
-users:
+informacoes:
   message: "Microsserviços Users - Dev"
   contact-detail:
     name: "Winston Churchil - Developer"

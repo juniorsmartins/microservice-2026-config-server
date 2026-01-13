@@ -238,7 +238,7 @@ logging:
   # --------------------------------------------------
 
 
-notifications:
+informacoes:
   message: "Microsserviços Notifications - Dev"
   contact-detail:
     name: "Winston Churchil - Developer"
