@@ -1,12 +1,3 @@
-users:
-  message: "Microsserviços Users - Dev"
-  contact-detail:
-    name: "Winston Churchil - Developer"
-    email: "ias@email.com"
-  on-call-suport:
-    - (453) 392-4829
-    - (236) 203-0384
-
 spring:
   application:
     name: api-users
@@ -258,4 +249,15 @@ logging:
     com.zaxxer.hikari: DEBUG
     com.zaxxer.hikari.pool.HikariPool: TRACE
   # --------------------------------------------------
+
+
+users:
+  message: "Microsserviços Users - Dev"
+  contact-detail:
+    name: "Winston Churchil - Developer"
+    email: "ias@email.com"
+  on-call-suport:
+    - (453) 392-4829
+    - (236) 203-0384
+
 

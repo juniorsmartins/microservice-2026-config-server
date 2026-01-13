@@ -1,12 +1,3 @@
-ias:
-  message: "Microsserviços IAS - Prod"
-  contact-detail:
-    name: "Winston Churchil - Developer"
-    email: "ias@email.com"
-  on-call-suport:
-    - (453) 392-4829
-    - (236) 203-0384
-
 spring:
   application:
     name: api-ias
@@ -103,5 +94,15 @@ logging:
     org.springframework.cloud.config: DEBUG
     org.springframework.cloud.config.client: TRACE
   # --------------------------------------------------
+
+
+ias:
+  message: "Microsserviços IAS - Prod"
+  contact-detail:
+    name: "Winston Churchil - Developer"
+    email: "ias@email.com"
+  on-call-suport:
+    - (453) 392-4829
+    - (236) 203-0384
 
 

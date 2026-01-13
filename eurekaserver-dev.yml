@@ -1,4 +1,7 @@
 spring:
+  application:
+    name: eurekaserver
+
 
   # --------------------------------------------------
   # Config de Config Client
