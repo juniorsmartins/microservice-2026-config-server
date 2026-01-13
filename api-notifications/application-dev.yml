@@ -119,13 +119,16 @@ spring:
     config:
       profile: ${SPRING_PROFILES_ACTIVE:prod}
       fail-fast: true
+      timeout: 30
       refresh:
         enable: true
       retry:
         initial-interval: 3000
         max-interval: 9000
         max-attempts: 3
+        multiplier: 1.5
     bus:
+      enabled: true
       refresh:
         enabled: true
       env:

@@ -1,5 +1,5 @@
 notifications:
-  message: "Microsserviços Notifications - Prod"
+  message: "Microsserviços Notifications - Dev"
   contact-detail:
     name: "Winston Churchil - Developer"
     email: "ias@email.com"
@@ -119,17 +119,31 @@ spring:
     config:
       profile: ${SPRING_PROFILES_ACTIVE:prod}
       fail-fast: true
+      timeout: 30
       refresh:
         enable: true
       retry:
         initial-interval: 3000
         max-interval: 9000
         max-attempts: 3
+        multiplier: 1.5
     bus:
+      enabled: true
       refresh:
         enabled: true
       env:
         enabled: true
+  # --------------------------------------------------
+
+
+  # --------------------------------------------------
+  # Config de RabbitMQ para Spring Cloud Bus
+  # --------------------------------------------------
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USER:"guest"}
+    password: ${RABBIT_PASS:"guest"}
   # --------------------------------------------------
 
 
