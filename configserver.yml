@@ -2,12 +2,12 @@ spring:
   application:
     name: configserver
 
+  profiles:
+    active: git # Ativa o perfil 'git' para usar repositório Git como fonte de configuração
 
   # --------------------------------------------------
   # Config de Config Server
   # --------------------------------------------------
-  profiles:
-    active: git # Ativa o perfil 'git' para usar repositório Git como fonte de configuração
   cloud:
     config:
       server:
