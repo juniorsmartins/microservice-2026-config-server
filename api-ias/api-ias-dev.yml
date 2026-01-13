@@ -8,6 +8,8 @@ ias:
     - (236) 203-0384
 
 spring:
+  application:
+    name: api-ias
 
   # --------------------------------------------------
   # Config de Config Client

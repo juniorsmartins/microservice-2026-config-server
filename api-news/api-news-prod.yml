@@ -8,6 +8,8 @@ news:
     - (236) 203-0384
 
 spring:
+  application:
+    name: api-news
 
   # --------------------------------------------------
   # Config de Datasource e Pool de Conexões (MySQL)
