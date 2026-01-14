@@ -101,7 +101,7 @@ logging:
 build:
   version: "1.0"
 informacoes:
-  message: "Microsserviços IAS - Dev Atualizado"
+  message: "Microsserviços IAS - Dev"
   contact-detail:
     name: "Winston Churchil - Developer"
     email: "ias@email.com"
