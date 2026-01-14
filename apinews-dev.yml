@@ -1,15 +1,15 @@
 spring:
   application:
-    name: api-users
+    name: apinews
 
   # --------------------------------------------------
-  # Config de Datasource e Pool de Conexões (PostgreSQL)
+  # Config de Datasource e Pool de Conexões (MySQL)
   # --------------------------------------------------
-  datasource: # Configura o datasource do banco de dados.
-    driver-class-name: org.postgresql.Driver # Especifica o driver JDBC (neste caso, para Postgres).
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:db-users}?serverTimezone=UTC # Define a URL de conexao ao banco.
-    username: ${POSTGRES_USER:postgres}
-    password: ${POSTGRES_PASSWORD:postgres}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:db-news}?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER:mysql123}
+    password: ${MYSQL_PASSWORD:mysql123}
 
     hikari:
       # Se true, cada operação SQL é automaticamente commitada ao fim da execução se não houver transação explícita. true é adequado em cenários simples. Em aplicações com transações claras via Spring, normalmente fica false, pois o controle é feito pelo gerenciador transacional.
@@ -53,23 +53,24 @@ spring:
   # Config de JPA
   # --------------------------------------------------
   jpa: # Configura o JPA/Hibernate.
-    database: POSTGRESQL
+    database: MYSQL
     hibernate:
-      ddl-auto: none # Define a estrategia de criacao do schema do banco de dados. Pode ser 'none', 'validate', 'update', 'create', 'create-drop'.
+      ddl-auto: create-drop # Define a estrategia de criacao do schema do banco de dados. Pode ser 'none', 'validate', 'update', 'create', 'create-drop'.
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # Define a estrategia de nomeacao fisica (padrao). Usar CamelCase no Java e snake_case no banco.
     defer-datasource-initialization: false # True adia a execucao do import.sql ate que o schema JPA esteja inicializado. Usar false com Liquibase.
     properties:
-      org:
-        hibernate: # Configuracoes avancadas do Hibernate.
-          envers:
-            audit_table_name: revision_info # Nome da tabela de revisoes do Envers (padrão REVINFO).
-            audit_table_suffix: _audit # Sufixo para tabelas de auditoria do Envers (padrão _aud).
-            revision_field_name: revision_id # Nome do campo de revisão.
-            revision_type_field_name: revision_type # Nome do campo de tipo de revisão.
+      #      org:
+      #        hibernate: # Configuracoes avancadas do Hibernate.
+      #          envers:
+      #            audit_table_name: revision_info # Nome da tabela de revisoes do Envers (padrão REVINFO).
+      #            audit_table_suffix: _audit # Sufixo para tabelas de auditoria do Envers (padrão _aud).
+      #            revision_field_name: revision_id # Nome do campo de revisão.
+      #            revision_type_field_name: revision_type # Nome do campo de tipo de revisão.
       hibernate:
         format_sql: true # Formata o SQL gerado para melhor legibilidade.
         use_sql_comments: true # Adiciona comentarios ao SQL gerado.
+        dialect: org.hibernate.dialect.MySQLDialect
         connection: # Define o nivel de isolamento de transacao.
           isolation: 2 # Nivel 2 de isolamento recomendado para a maioria dos casos. - 1 = READ_UNCOMMITTED, 2 = READ_COMMITTED, 4 = REPEATABLE_READ, 8 = SERIALIZABLE
         cache:
@@ -80,16 +81,6 @@ spring:
             type: pgsql_enum # Define o mapeamento de enums para PostgreSQL. Usar 'pgsql_enum' para suporte nativo a enums do PostgreSQL.
     open-in-view: false #  Define se o Hibernate deve manter a sessao aberta durante a renderizacao da view. O false e recomendado para evitar problemas de performance e lazy loading.
     show-sql: true # Habilita a exibicao do SQL gerado no console.
-  # --------------------------------------------------
-
-
-  # --------------------------------------------------
-  # Config de Liquibase
-  # --------------------------------------------------
-  liquibase:
-    enabled: true
-    change-log: classpath:liquibase/changelog/master.yaml
-    default-schema: public
   # --------------------------------------------------
 
 
@@ -133,70 +124,6 @@ spring:
 
 
   # --------------------------------------------------
-  # Config de Kafka
-  # --------------------------------------------------
-  kafka:
-    bootstrap-servers: kafka-1:9092,kafka-2:9092,kafka-3:9092
-    schema.registry.url: http://schema-registry:8081 # Endereço do esquema registry (obrigatório se usar Avro)
-
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer # Define como serializar chaves (obrigatório)
-      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer # Define como serializar o payload/mensagem - pode ser string, json, avro e etc (obrigatório)
-
-      # === Exactly-once (trio sagrado: idempotence, acks e retries) ===
-      acks: all # Define se o producer deve esperar confirmação de entrega (0 - Producer nem espera resposta. Envia e esquece / 1 - Producer espera o líder confirmar que gravou. / all ou -1 - Producer espera líder + todas as réplicas ISR confirmarem (ou seja, RF=3 → 3 confirmações).
-      enable.idempotence: true # Habilita idempotência (necessário para evitar mensagens duplicadas, incluído em retries). Funciona em conjunto com acks e retries.
-      max.in.flight.requests.per.connection: 5 # Permitir múltiplas requisições em voo para maior throughput (padrão 5)
-      retries: 2147483647 # Número de tentativas de retentativa (default 2147483647)
-
-      # === Resiliência (funciona com o Retries) ===
-      retry.backoff.ms: 100 # Tempo para esperar entre as tentativas (padrão: 100ms)
-      retry.backoff.max.ms: 1000 # A quantidade máxima de tempo em milissegundos para esperar ao tentar novamente uma solicitação ao corretor que falhou repetidamente (padrão: 1000).
-      request.timeout.ms: 30000 # Controla a quantidade máxima de tempo que o cliente aguardará pela resposta de uma solicitação (padrão: 30000).
-      delivery.timeout.ms: 120000 # Tempo máximo para entregar uma mensagem incluindo todas as tentativas (padrão: 120000). Tempo TOTAL para enviar antes de desistir e jogar exceção (Mesmo que tenha milhões de retries, depois de X tempo no total o produtor desiste e joga exceção). Ele controla o ciclo de vida, incluindo: Todas as tentativas de retry; Espera no batch (linger.ms); Tempo de compressão; Tempo de envio pela rede; Espera pelo ack do broker.
-
-      # === Throughput Máximo ===
-      batch-size: 131072 # Tamanho máximo (em bytes) que o produtor tenta juntar em um único batch antes de enviar para o broker. Junta várias mensagens num pacote só.
-      linger-ms: 5 # Define quanto temo espera até encher o batch (usar obrigatório com batch-size)
-      compression-type: zstd # Define como a mensagem será comprimida antes de enviar (none, gzip, snappy, lz4, zstd). Isso reduz o tamanho.
-
-      properties:
-        auto.register.schemas: true # registra schema automaticamente (dev OK, prod = false)
-
-    consumer:
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer # Define como desserializar chaves (obrigatório)
-      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer # Define como desserializar o payload/mensagem - pode ser string, json, avro e etc (obrigatório)
-
-      # === Estratégia de rebalance ===
-      partition.assignment.strategy: org.apache.kafka.clients.consumer.CooperativeStickyAssignor
-      group-id: ${spring.application.name}-v1 # Identificador único do grupo de consumidores. Consumers com o mesmo group.id formam um grupo que divide o trabalho (uma partição → um consumer por grupo). O coordinator usa isso para atribuir partições e armazenar offsets no tópico interno __consumer_offsets.
-      group.instance.id: ${spring.application.name}-${STATEFULSET_POD_INDEX:0} # Identificador estático do consumidor. Todos os consumidores do grupo ficam tendo o mesmo ID estático. Então quando o consumidor sai, a partição dele não é reatribuída de imediato e espera por um tempo configurável (session.timeout.ms). Daí, quando um consumidor entrar, essa partição é reatribuída sem ter gerado a ação de rebalance geral. Isso evita o rebalanceamento.
-      session.timeout.ms: 45000 # Tempo que o coordinator espera heartbeat antes de marcar o consumidor como morto (padrão 45000).
-
-      # === Forma de leitura e garantia de entrega ===
-      auto-offset-reset: latest # latest lê a partir da mensagem mais recente do tópico / earliest lê todas as mensagens do tópico desde o início. Recomendado latest em produção.
-      enable-auto-commit: false # O false permite controle sobre o commit (manual ou via Spring). Spring Kafka gerencia com @KafkaListener e Acknowledgment. Obrigatório false em produção.
-      # enable-auto-commit false precisa de tópico DLT
-
-      # === Resiliência (funciona com Retries) ===
-      request-timeout-ms: 45000 # o tempo limite usado para detectar falhas do cliente
-
-      # === Performance ===
-      max-poll-records: 500 # Mais mensagens por poll → menos chamadas de rede (padrão é 500)
-      max.poll.interval.ms: 600000 # Tempo máximo entre polls → se passar, expulsa do grupo.
-
-      # === Schema Registry ===
-      properties:
-        specific.avro.reader: true # Usa SpecificRecord (classes geradas a partir do Avro), não GenericRecord.
-
-    topic:
-      events:
-        customer-created: events.customer-created-v1
-      min.insync.replicas: 2 # O min.insync.replicas configuração trabalha em conjunto com acks=all para controlar a durabilidade.
-  # --------------------------------------------------
-
-
-  # --------------------------------------------------
   # Config de Actuator
   # --------------------------------------------------
 management:
@@ -204,7 +131,7 @@ management:
     web:
       base-path: /actuator # Define o path base dos endpoints do actuator (padrão /actuator)
       exposure:
-        include: refresh,health,info,metrics,configprops,liquibase,busenv,busrefresh,busshutdown # Expõe endpoints para monitoramento
+        include: refresh,health,info,metrics,configprops,busenv,busrefresh,busshutdown # Expõe endpoints para monitoramento
   endpoint:
     health:
       show-details: always # Mostra detalhes completos de saúde
@@ -235,28 +162,18 @@ eureka:
 springdoc:
   api-docs:
     enabled: true
-    path: /api-users/v3/api-docs
+    path: /api-news/v3/api-docs
   swagger-ui:
     enebled: true
     path: /swagger-ui/v3/index.html
-    url: /api-users/v3/api-docs
-  # --------------------------------------------------
-
-
-  # --------------------------------------------------
-  # Config de logging
-  # --------------------------------------------------
-logging:
-  level:
-    com.zaxxer.hikari: DEBUG
-    com.zaxxer.hikari.pool.HikariPool: TRACE
+    url: /api-news/v3/api-docs
   # --------------------------------------------------
 
 
 build:
   version: "1.0"
 informacoes:
-  message: "Microsserviços Users - Dev"
+  message: "Microsserviços News - Dev"
   contact-detail:
     name: "Winston Churchil - Developer"
     email: "ias@email.com"

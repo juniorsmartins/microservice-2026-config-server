@@ -1,6 +1,6 @@
 spring:
   application:
-    name: api-users
+    name: apiusers
 
   # --------------------------------------------------
   # Config de Datasource e Pool de Conexões (PostgreSQL)
