@@ -2,8 +2,8 @@ spring:
   application:
     name: apiias
 
-  profiles:
-    active: prod
+#  profiles:
+#    active: prod
 
   # --------------------------------------------------
   # Config de Config Client

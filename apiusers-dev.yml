@@ -2,8 +2,8 @@ spring:
   application:
     name: apiusers
 
-  profiles:
-    active: dev
+#  profiles:
+#    active: dev
 
   # --------------------------------------------------
   # Config de Datasource e Pool de Conexões (PostgreSQL)

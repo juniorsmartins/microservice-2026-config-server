@@ -2,8 +2,8 @@ spring:
   application:
     name: apinotifications
 
-  profiles:
-    active: prod
+#  profiles:
+#    active: prod
 
   # --------------------------------------------------
   # Config de Datasource e Pool de Conexões (MariaDb)
