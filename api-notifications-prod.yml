@@ -1,9 +1,6 @@
 spring:
   application:
-    name: apinotifications
-
-#  profiles:
-#    active: prod
+    name: api-notifications
 
   # --------------------------------------------------
   # Config de Datasource e Pool de Conexões (MariaDb)

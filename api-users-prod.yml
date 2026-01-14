@@ -1,9 +1,6 @@
 spring:
   application:
-    name: apiusers
-
-#  profiles:
-#    active: prod
+    name: api-users
 
   # --------------------------------------------------
   # Config de Datasource e Pool de Conexões (PostgreSQL)
