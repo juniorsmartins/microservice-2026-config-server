@@ -101,10 +101,10 @@ logging:
 build:
   version: "1.0"
 informacoes:
-  message: "Microsserviços IAS - Dev"
+  message: "Microsserviços IAS - Dev Remote"
   contact-detail:
     name: "Winston Churchil - Developer"
-    email: "ias@email.com"
+    email: "ias-remote@email.com"
   on-call-suport:
     - (453) 392-4829
     - (236) 203-0384
